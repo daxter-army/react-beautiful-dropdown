@@ -2690,8 +2690,13 @@ var Styled = {
 };
 
 var Input = function Input(_ref) {
-  var value = _ref.value,
-    error = _ref.error,
+  var _ref$value = _ref.value,
+    value = _ref$value === void 0 ? "Sample value" : _ref$value,
+    _ref$error = _ref.error,
+    error = _ref$error === void 0 ? {
+      isError: false,
+      errorText: ""
+    } : _ref$error,
     options = _ref.options,
     inputRef = _ref.inputRef,
     isActive = _ref.isActive,
@@ -2699,7 +2704,10 @@ var Input = function Input(_ref) {
     optionsRef = _ref.optionsRef,
     focusIndex = _ref.focusIndex,
     activeIndex = _ref.activeIndex,
-    valueHandler = _ref.valueHandler,
+    _ref$valueHandler = _ref.valueHandler,
+    valueHandler = _ref$valueHandler === void 0 ? function (val) {
+      console.log("Value:", val, "\n", "Pass custom valueHandler() to get latest value back to you");
+    } : _ref$valueHandler,
     optionItemsRef = _ref.optionItemsRef,
     isActiveHandler = _ref.isActiveHandler,
     onKeyDownHandler = _ref.onKeyDownHandler,

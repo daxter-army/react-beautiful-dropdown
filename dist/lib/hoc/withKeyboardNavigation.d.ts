@@ -18,7 +18,7 @@ export interface InjectedInputProps {
 export interface ReceivedInputProps {
     value: string;
     placeholder: string;
-    error: {
+    error?: {
         isError: boolean;
         errorText: string;
     };
