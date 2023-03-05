@@ -43,7 +43,7 @@
 			// customDropdownItemStyles={{}}
 		/>
   ```
-### Code Snippet Example
+### 💻 Code Snippet Example
 
 ```javascript
 import ReactDropdown from "react-beautiful-dropdown";
