@@ -2,7 +2,7 @@
 
 ### 🏗️ Online Demo
 * Visit [Npm package](https://www.npmjs.com/package/react-beautiful-dropdown) Homepage.
-* Visit [Project Homepage](https://www.github.com/daxter-army/react-dropdown) to see live demo.
+* Visit [Project Homepage](https://daxter-army.github.io/react-dropdown/) to see live demo.
 
 ### 🚀 Getting Started
 - **Compatibility**
