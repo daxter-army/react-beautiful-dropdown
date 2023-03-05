@@ -83,7 +83,7 @@ const App = () => {
 };
 ```
 
-#### Props
+### 🧭 Props
 
 | Prop name | Description | Type | Default value |
 | :-------: | :---------: | :--: | :-----------: |
