@@ -33,12 +33,12 @@ const Input: React.FC<InputProps> = ({
 	isMouseHoverAllowedHandler,
 	placeholder = "Placeholder",
 }) => {
-	// TO DETECT OUTSIDE CLICK
+	// To detect outisde clicks
 	const dropdownRef = useRef([inputRef, optionsRef])
 	useOutsideClick(dropdownRef, () => {
 		if (isActive) {
-			if (activeIndex !== focusIndex) valueHandler(prevValue)
-			isActiveHandler(false)
+			// To only change when the value is changed
+			if ((activeIndex !== focusIndex) || (activeIndex === -1 && focusIndex === -1)) valueHandler(prevValue)
 			isActiveHandler(false)
 			inputRef.current?.blur()
 		}
@@ -48,13 +48,10 @@ const Input: React.FC<InputProps> = ({
 		isActiveHandler(true)
 	}
 
-	const blurHandler = () => {
-		// setIsActive(false)
-	}
-
-	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		valueHandler(e.target.value)
-	}
+	// const blurHandler = () => {
+	// Because I don't want to unmount on input blur
+	// 	setIsActive(false)
+	// }
 
 	return (
 		<S.InputWpr>
@@ -63,25 +60,28 @@ const Input: React.FC<InputProps> = ({
 					value={value}
 					ref={inputRef}
 					isActive={isActive}
-					onBlur={blurHandler}
+					// onBlur={blurHandler}
 					onFocus={focusHandler}
 					placeholder={placeholder}
 					style={customInputStyles}
 					onKeyDown={onKeyDownHandler}
-					onChange={onChangeHandler}
+					onChange={e => valueHandler(e.target.value)}
 				/>
 				<S.IconCtr>
-					{isActive
-						? <FiChevronUp size={18} color={isActive ? '#3498db' : "#777"} />
-						: <FiChevronDown size={18} color={isActive ? '#3498db' : "#777"} />
+					{
+						isActive
+							? <FiChevronUp size={18} color={isActive ? '#3498db' : "#777"} />
+							: <FiChevronDown size={18} color={isActive ? '#3498db' : "#777"} />
 					}
 				</S.IconCtr>
 			</S.InputCtr>
-			{error.isError && <S.ErrorLabel>{error.errorText}<MdErrorOutline /></S.ErrorLabel>}
+			{
+				error.isError && <S.ErrorLabel>{error.errorText}<MdErrorOutline /></S.ErrorLabel>
+			}
 			{
 				isActive && <Dropdown
 					list={options}
-					optionsRef={optionsRef}
+					ref={optionsRef}
 					focusIndex={focusIndex}
 					activeIndex={activeIndex}
 					optionItemsRef={optionItemsRef}

@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import DropdownProps from "./Props";
-declare const Dropdown: ({ list, optionsRef, focusIndex, activeIndex, optionItemsRef, focusIndexHandler, onClickItemHandler, isMouseHoverAllowed, customDropdownStyles, customDropdownItemStyles, isMouseHoverAllowedHandler, }: DropdownProps) => JSX.Element;
+declare const Dropdown: React.ForwardRefExoticComponent<DropdownProps & React.RefAttributes<HTMLUListElement>>;
 export default Dropdown;

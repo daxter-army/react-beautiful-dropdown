@@ -2285,7 +2285,7 @@ tags.forEach(function (tagName) {
 var _templateObject$1, _templateObject2$1;
 // Elements
 var Dropdown$1 = newStyled.ul(_templateObject$1 || (_templateObject$1 = _taggedTemplateLiteral(["\n\tposition: absolute;\n\tmargin-top: 8px;\n\tmax-height: 200px;\n\toverflow-y: auto;\n\twidth: 100%;\n\tborder: 1px #e7e7e7 solid;\n\n\t&::-webkit-scrollbar {\n\t\twidth: 5px;\n\t}\n\n\t/* Track */\n\t&::-webkit-scrollbar-track {\n\t\tbackground-color: #e7e7e7;\n\t}\n\n\t/* Handle */\n\t&::-webkit-scrollbar-thumb {\n\t\tbackground-color: #757575;\n\t}\n"])));
-var DropdownItem = newStyled.li(_templateObject2$1 || (_templateObject2$1 = _taggedTemplateLiteral(["\n\tpadding: 12px 8px;\n\tfont-size: 14px;\n\tline-height: 16px;\n\t", "\n\t", "\n\t", "\n\n\t&:not(:last-child) {\n\t\tborder-bottom: 1px #e7e7e7 solid;\n\t}\n"])), function (props) {
+var DropdownItem = newStyled.li(_templateObject2$1 || (_templateObject2$1 = _taggedTemplateLiteral(["\n\tpadding: 12px 8px;\n\tfont-size: 14px;\n\tline-height: 16px;\n\tbackground-color: white;\n\t", "\n\t", "\n\t", "\n\n\t&:not(:last-child) {\n\t\tborder-bottom: 1px #e7e7e7 solid;\n\t}\n"])), function (props) {
   return props.isMouseOn ? "pointer-events: auto;" : "pointer-events: none;";
 }, function (props) {
   return props.isFocus && "background-color: #badc58; color: #4a4a4a; font-weight: 900;";
@@ -2297,9 +2297,8 @@ var Styled$1 = {
   DropdownItem: DropdownItem
 };
 
-var Dropdown = function Dropdown(_ref) {
+var Dropdown = /*#__PURE__*/React.forwardRef(function (_ref, ref) {
   var list = _ref.list,
-    optionsRef = _ref.optionsRef,
     focusIndex = _ref.focusIndex,
     activeIndex = _ref.activeIndex,
     optionItemsRef = _ref.optionItemsRef,
@@ -2332,12 +2331,13 @@ var Dropdown = function Dropdown(_ref) {
     }
   };
   return /*#__PURE__*/React.createElement(Styled$1.Dropdown, {
-    ref: optionsRef,
+    ref: ref,
     style: customDropdownStyles,
     onClick: onClickDropdownHandler,
     onMouseMove: onDropdownMouseMoveHandler,
     onMouseLeave: onDropdownMouseLeaveHandler
   }, list.map(function (item, i) {
+    // Creating refs for every element
     itemRefHandler();
     return /*#__PURE__*/React.createElement(Styled$1.DropdownItem, {
       key: item.id,
@@ -2354,7 +2354,7 @@ var Dropdown = function Dropdown(_ref) {
       }
     }, item.label);
   }));
-};
+});
 
 var DefaultContext = {
   color: undefined,
@@ -2444,6 +2444,7 @@ function useOutsideClick(ref, handler) {
     var isRefThere = false;
     for (var i = 0; i < ref.current.length; i++) {
       if (!ref.current[i].current) continue;
+      // Comparing nodes, whether the clicked node is equal to a ref, or is a children of the ref
       if (ref.current[i].current.isEqualNode(event.target) || ref.current[i].current.contains(event.target)) {
         isRefThere = true;
         break;
@@ -2521,8 +2522,9 @@ function _slicedToArray(arr, i) {
 // Function to match the given value with any value present in the array.
 var valueMatcher = function valueMatcher(value, valueArr) {
   var isValuePresent = false;
+  if (value === "") return false;
   for (var i = 0; i < valueArr.length; i++) {
-    if (valueArr[i].label.toLowerCase() === value.toLowerCase()) {
+    if (valueArr[i].label.toLowerCase().includes(value.toLowerCase())) {
       isValuePresent = i;
       break;
     }
@@ -2567,7 +2569,7 @@ function withKeyboardNavigation(WrappedComponent) {
     var scrollToSelectedIndex = function scrollToSelectedIndex(i) {
       var _a, _b, _c;
       if (!optionsRef.current || !optionItemsRef.current) return;
-      console.log("Scrolling to index: ", i);
+      // console.log("Scrolling to index: ", i)
       (_a = optionsRef.current) === null || _a === void 0 ? void 0 : _a.scrollTo(0, (_c = (_b = optionItemsRef.current[i]) === null || _b === void 0 ? void 0 : _b.current) === null || _c === void 0 ? void 0 : _c.offsetTop);
     };
     // Dropdown item click handler
@@ -2681,9 +2683,9 @@ function withKeyboardNavigation(WrappedComponent) {
       optionsRef: optionsRef,
       focusIndex: focusIndex,
       activeIndex: activeIndex,
-      focusIndexHandler: setFocusIndex,
       isActiveHandler: setIsActive,
       optionItemsRef: optionItemsRef,
+      focusIndexHandler: setFocusIndex,
       prevValue: cachedValueRef.current,
       onKeyDownHandler: onKeyDownHandler,
       onClickItemHandler: onClickItemHandler,
@@ -2697,7 +2699,7 @@ var _templateObject, _templateObject2, _templateObject3, _templateObject4, _temp
 var Input$1 = newStyled.input(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\tpadding: 0px 30px 0px 12px;\n\theight: 48px;\n\twidth: 100%;\n\tfont-size: 16px;\n\tline-height: 20px;\n\tborder-radius: 4px;\n\tborder: 2px #d8d8d8 solid;\n\n\t", "\n"])), function (props) {
   return props.isActive && "\n\t\tborder: 2px #3498db solid;\n\t\toutline: none;\n\t";
 });
-var InputWpr = newStyled.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n\tposition: relative;\n\twidth: 400px;\n"])));
+var InputWpr = newStyled.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n\tposition: relative;\n\t/* width: 400px; */\n"])));
 var InputCtr = newStyled.div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n\tposition: relative;\n\t/* isActive: */\n\t/* isFocus: */\n\t/* isError: */\n"])));
 var IconCtr = newStyled.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n\tposition: absolute;\n\ttop: 55%;\n\ttransform: translateY(-50%);\n\tright: 12px;\n"])));
 var ErrorLabel = newStyled.p(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral([""])));
@@ -2710,13 +2712,8 @@ var Styled = {
 };
 
 var Input = function Input(_ref) {
-  var _ref$value = _ref.value,
-    value = _ref$value === void 0 ? "Sample value" : _ref$value,
-    _ref$error = _ref.error,
-    error = _ref$error === void 0 ? {
-      isError: false,
-      errorText: ""
-    } : _ref$error,
+  var value = _ref.value,
+    error = _ref.error,
     options = _ref.options,
     inputRef = _ref.inputRef,
     isActive = _ref.isActive,
@@ -2724,10 +2721,7 @@ var Input = function Input(_ref) {
     optionsRef = _ref.optionsRef,
     focusIndex = _ref.focusIndex,
     activeIndex = _ref.activeIndex,
-    _ref$valueHandler = _ref.valueHandler,
-    valueHandler = _ref$valueHandler === void 0 ? function (val) {
-      console.log("Value:", val, "\n", "Pass custom valueHandler() to get latest value back to you");
-    } : _ref$valueHandler,
+    valueHandler = _ref.valueHandler,
     optionItemsRef = _ref.optionItemsRef,
     isActiveHandler = _ref.isActiveHandler,
     onKeyDownHandler = _ref.onKeyDownHandler,
@@ -2740,13 +2734,13 @@ var Input = function Input(_ref) {
     isMouseHoverAllowedHandler = _ref.isMouseHoverAllowedHandler,
     _ref$placeholder = _ref.placeholder,
     placeholder = _ref$placeholder === void 0 ? "Placeholder" : _ref$placeholder;
-  // TO DETECT OUTSIDE CLICK
+  // To detect outisde clicks
   var dropdownRef = React.useRef([inputRef, optionsRef]);
   useOutsideClick(dropdownRef, function () {
     var _a;
     if (isActive) {
-      if (activeIndex !== focusIndex) valueHandler(prevValue);
-      isActiveHandler(false);
+      // To only change when the value is changed
+      if (activeIndex !== focusIndex || activeIndex === -1 && focusIndex === -1) valueHandler(prevValue);
       isActiveHandler(false);
       (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.blur();
     }
@@ -2754,22 +2748,22 @@ var Input = function Input(_ref) {
   var focusHandler = function focusHandler() {
     isActiveHandler(true);
   };
-  var blurHandler = function blurHandler() {
-    // setIsActive(false)
-  };
-  var onChangeHandler = function onChangeHandler(e) {
-    valueHandler(e.target.value);
-  };
+  // const blurHandler = () => {
+  // Because I don't want to unmount on input blur
+  // 	setIsActive(false)
+  // }
   return /*#__PURE__*/React.createElement(Styled.InputWpr, null, /*#__PURE__*/React.createElement(Styled.InputCtr, null, /*#__PURE__*/React.createElement(Styled.Input, {
     value: value,
     ref: inputRef,
     isActive: isActive,
-    onBlur: blurHandler,
+    // onBlur={blurHandler}
     onFocus: focusHandler,
     placeholder: placeholder,
     style: customInputStyles,
     onKeyDown: onKeyDownHandler,
-    onChange: onChangeHandler
+    onChange: function onChange(e) {
+      return valueHandler(e.target.value);
+    }
   }), /*#__PURE__*/React.createElement(Styled.IconCtr, null, isActive ? /*#__PURE__*/React.createElement(FiChevronUp, {
     size: 18,
     color: isActive ? '#3498db' : "#777"
@@ -2778,7 +2772,7 @@ var Input = function Input(_ref) {
     color: isActive ? '#3498db' : "#777"
   }))), error.isError && /*#__PURE__*/React.createElement(Styled.ErrorLabel, null, error.errorText, /*#__PURE__*/React.createElement(MdErrorOutline, null)), isActive && /*#__PURE__*/React.createElement(Dropdown, {
     list: options,
-    optionsRef: optionsRef,
+    ref: optionsRef,
     focusIndex: focusIndex,
     activeIndex: activeIndex,
     optionItemsRef: optionItemsRef,

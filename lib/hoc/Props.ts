@@ -1,4 +1,3 @@
-import React from "react"
 import { optionItemProps } from '../Props';
 
 // Props being supplied to the component from HOC

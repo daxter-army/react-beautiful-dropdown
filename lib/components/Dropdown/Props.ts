@@ -1,4 +1,3 @@
-import React from "react"
 import { optionItemProps } from "../../Props";
 
 export default interface DropdownProps {
