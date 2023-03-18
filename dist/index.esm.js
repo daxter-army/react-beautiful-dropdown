@@ -2725,8 +2725,8 @@ var Input = function Input(_ref) {
   useOutsideClick(dropdownRef, function () {
     var _a;
     if (isActive) {
-      console.log("RUNNING");
-      valueHandler(prevValue);
+      if (activeIndex !== focusIndex) valueHandler(prevValue);
+      isActiveHandler(false);
       isActiveHandler(false);
       (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.blur();
     }
